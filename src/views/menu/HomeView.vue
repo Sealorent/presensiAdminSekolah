@@ -5,55 +5,57 @@
 }
 </style>
 <template>
-    <div class="flex flex-col items-center justify-center w-full h-screen">
-        <header class="top-0 flex flex-col items-center justify-center w-full py-4 gap-y-2 bg-primaryColors bg_home">
-            <p class="text-sm font-thin text-white font-mulish">Demo Admin Sekolah</p>
-            <div class="container flex items-center justify-center w-full">
-                <div class="w-20 h-20 overflow-hidden border-2 rounded-full" >
-                    <img alt="profile-image" class="object-cover w-full h-full" :src="imageUser"/>
-                </div>
-            </div>
-            <p class="text-lg text-white font-mulish">{{ nameUser }}</p>
-            <p class="text-sm text-white font-mulish">{{ jabatanUser }}</p>
-        </header>
-        <main class="items-center justify-center flex-grow">
-            <div class="container flex flex-col items-center justify-center py-2">
-                <p class="text-[16px] text-black font-mulish">{{ formattedDate }}</p>
-                <p class="text-[16px] font-mulish">{{ formattedTime }} <span class="font-mulish text-[12px]">{{ localTime }}</span></p>
-            </div>
-            <div class="container flex flex-col justify-center ">
-                <hr class="w-1/2 mx-auto">
-                <div class="flex flex-row justify-between w-1/2 mx-auto">
-                    <div class="flex flex-col">
-                        <p class="text-[10px] text-gray-400">DATANG</p>
-                        <p>{{ startTime }}</p>
-                    </div>
-                    <div class="flex flex-col">
-                        <p class="text-[10px] text-gray-400">PULANG</p>
-                        <p>{{ endTime }}</p>
+    <div class="flex justify-center ">
+        <div class="md:w-1/3 lg:w-1/4 w-full flex flex-col h-screen overflow-auto ">
+            <header class="top-0 flex flex-col items-center justify-center w-full py-4 gap-y-2 bg-primaryColors bg_home">
+                <p class="text-sm font-thin text-white font-mulish">Demo Admin Sekolah</p>
+                <div class="container flex items-center justify-center w-full">
+                    <div class="w-20 h-20 overflow-hidden border-2 rounded-full" >
+                        <img alt="profile-image" class="object-cover w-full h-full" :src="imageUser"/>
                     </div>
                 </div>
-            </div>
-            <div class="flex w-full pt-5">
-            <!-- menu Button -->
-                <div class="container flex flex-col items-center pt-2 text-center">
-                    <!-- Centered section with menu items -->
-                    <div class="flex flex-wrap justify-center">
-                        <div v-for="item in menu" :key="item.route" class="flex items-center justify-center w-1/3 pt-4">
-                            <div class="flex flex-col items-center justify-center" @click="navigateTo(item.route)">
-                                <div class="flex items-center justify-center mx-auto bg-opacity-50 rounded-full w-14 h-14" :class="item.bg_color">
-                                    <font-awesome-icon :icon="item.icon" class="text-2xl " :class="item.color" />
-                                </div>
-                                <div class="flex items-center justify-center pt-3">
-                                    <p class="text-sm font-bold text-black whitespace-normal max-w-[5rem] truncate  font-mulish">{{ item.name }}</p>
+                <p class="text-lg text-white font-mulish">{{ nameUser }}</p>
+                <p class="text-sm text-white font-mulish">{{ jabatanUser }}</p>
+            </header>
+            <main class="items-center justify-center flex-grow mb-20 md:mb-0 lg:mb:0">
+                <div class="container flex flex-col items-center justify-center py-2">
+                    <p class="text-[16px] text-black font-mulish">{{ formattedDate }}</p>
+                    <p class="text-[16px] font-mulish">{{ formattedTime }} <span class="font-mulish text-[12px]">{{ localTime }}</span></p>
+                </div>
+                <div class="container flex flex-col justify-center ">
+                    <hr class="w-1/2 mx-auto">
+                    <div class="flex flex-row justify-between w-1/2 mx-auto">
+                        <div class="flex flex-col">
+                            <p class="text-[10px] text-gray-400">DATANG</p>
+                            <p>{{ startTime }}</p>
+                        </div>
+                        <div class="flex flex-col">
+                            <p class="text-[10px] text-gray-400">PULANG</p>
+                            <p>{{ endTime }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex w-full pt-5">
+                <!-- menu Button -->
+                    <div class="container flex flex-col items-center pt-2 text-center">
+                        <!-- Centered section with menu items -->
+                        <div class="flex flex-wrap justify-center">
+                            <div v-for="item in menu" :key="item.route" class="flex items-center justify-center w-1/3 pt-4">
+                                <div class="flex flex-col items-center justify-center" @click="navigateTo(item.route)">
+                                    <div class="flex items-center justify-center mx-auto bg-opacity-50 rounded-full w-14 h-14" :class="item.bg_color">
+                                        <font-awesome-icon :icon="item.icon" class="text-2xl " :class="item.color" />
+                                    </div>
+                                    <div class="flex items-center justify-center pt-3">
+                                        <p class="text-sm font-bold text-black whitespace-normal max-w-[5rem] truncate  font-mulish">{{ item.name }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <MenuBottomBar/>
-        </main>
+                <MenuBottomBar/>
+            </main>
+        </div>
     </div>
 </template>
 
@@ -109,9 +111,10 @@ export default {
                 await axios.get(`http://ip-api.com/json/${this.ipAddress}`).then(response => {
                     this.state.Success()
                     this.informationIp = response.data;
+                    console.log(this.informationIp);
                     this.displayTimeInDifferentZones(this.informationIp.timezone);
                 }).catch(error => {
-                    this.state.Error(error.message)
+                    // this.state.Error(error.message)
                 });
         },
         updateTime() {
@@ -148,10 +151,10 @@ export default {
             }
         }
     },
-    mounted(){
-        this.getIp();
-        this.getDataIp();
-        setInterval(this.updateTime, 1000);
+    async mounted(){
+        await this.getIp();
+        await this.getDataIp();
+        await setInterval(this.updateTime, 1000);
     },
     computed: {
         formattedDate() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-3 btm-nav">
+    <div class=" grid grid-cols-3 btm-nav">
         <button class="text-info" v-for="item in menu" :key="item" @click="this.$router.push({name:item.route})" :class="routeName == item.route ? 'active' : ' ' ">
             <font-awesome-icon :icon="['fas', item.icon]" class="text-lg" />
             <p class="text-[10px] uppercase">{{ item.name }}</p>

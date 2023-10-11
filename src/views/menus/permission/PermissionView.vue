@@ -1,62 +1,68 @@
 
 
 <template>
-    <div class="flex flex-col w-full h-screen" v-if="datePicker == false">
-        <HeaderMenusComponent :title="'Pengajuan izin'"/>
-        <div class="flex flex-col flex-grow pt-2 gap-y-6">
-            <div class="container flex flex-col gap-y-2">
-                <p class="text-[16px] font-mulish">Pilih Keperluan</p>
-                <div class="flex flex-row items-center gap-x-2">
-                    <input type="radio" name="radio-10" class="radio radio-info" value="IJIN" v-model="selectedPurpose"  checked/>
-                    <span class="">Izin</span> 
+            
+
+    <div class="flex justify-center h-screen" v-if="datePicker == false">
+        <div class="lg:w-1/4 md:w-1/3 w-full flex flex-col">
+            <HeaderMenusComponent :title="'Pengajuan izin'"/>
+            <div class="flex flex-col flex-grow pt-2 gap-y-6">
+                <div class="container flex flex-col gap-y-2">
+                    <p class="text-[16px] font-mulish">Pilih Keperluan</p>
+                    <div class="flex flex-row items-center gap-x-2">
+                        <input type="radio" name="radio-10" class="radio radio-info" value="IJIN" v-model="selectedPurpose"  checked/>
+                        <span class="">Izin</span> 
+                    </div>
+                    <div class="flex flex-row items-center gap-x-2">
+                        <input type="radio" name="radio-10" class="radio radio-info" value="SAKIT" v-model="selectedPurpose" />
+                        <span class="">Sakit</span> 
+                    </div>
+                    <div class="flex flex-row items-center gap-x-2">
+                        <input type="radio" name="radio-10" class="radio radio-info" value="LAIN-LAIN" v-model="selectedPurpose" />
+                        <span class="">Lain Lain</span> 
+                    </div>
                 </div>
-                <div class="flex flex-row items-center gap-x-2">
-                    <input type="radio" name="radio-10" class="radio radio-info" value="SAKIT" v-model="selectedPurpose" />
-                    <span class="">Sakit</span> 
-                </div>
-                <div class="flex flex-row items-center gap-x-2">
-                    <input type="radio" name="radio-10" class="radio radio-info" value="LAIN-LAIN" v-model="selectedPurpose" />
-                    <span class="">Lain Lain</span> 
-                </div>
-            </div>
-            <div class="container flex flex-col items-center w-full gap-y-2 form-control">
-                <div class="input-group">
-                    <input type="text" placeholder="Pilih Tanggal" :value="selectedDate" class="w-full input input-bordered" />
-                    <button class="btn btn-square" @click="datePicker = true">
-                        <font-awesome-icon :icon="['fas', 'calendar-days']" />
+                <div class="container flex flex-col items-center w-full gap-y-2 form-control">
+                    <div class="input-group">
+                        <input type="text" placeholder="Pilih Tanggal" :value="selectedDate" class="w-full input input-bordered" />
+                        <button class="btn btn-square" @click="datePicker = true">
+                            <font-awesome-icon :icon="['fas', 'calendar-days']" />
+                        </button>
+                    </div>
+                    <button @click="uploadDocument" class="w-full text-blue-400 bg-white border-2 border-blue-400 btn">
+                        <font-awesome-icon :icon="['fas', 'upload']"  class="text-blue-400"/>
+                        <span>Unggah Dokumen</span>
+                    </button>
+                    <input type="file" class="hidden" ref="document" @change="handleFileChange" />
+                    <input type="text" v-model="desc" placeholder="Keterangan" class="w-full input input-bordered" />
+                    <button @click="submit" class="w-full text-white btn bg-primaryColors">
+                        <span>Kirim</span>
                     </button>
                 </div>
-                <button @click="uploadDocument" class="w-full text-blue-400 bg-white border-2 border-blue-400 btn">
-                    <font-awesome-icon :icon="['fas', 'upload']"  class="text-blue-400"/>
-                    <span>Unggah Dokumen</span>
-                </button>
-                <input type="file" class="hidden" ref="document" @change="handleFileChange" />
-                <input type="text" v-model="desc" placeholder="Keterangan" class="w-full input input-bordered" />
-                <button @click="submit" class="w-full text-white btn bg-primaryColors">
-                    <span>Kirim</span>
-                </button>
             </div>
         </div>
     </div>
     <!-- datepicker -->
-    <div class="flex flex-col w-full h-screen" v-if="datePicker">
-        <header class="bg-primaryColors ">
-            <div class="flex flex-row items-center justify-between p-3">
-                <font-awesome-icon :icon="['fas', 'xmark']" class="text-white " @click="close" />
-                <p class="text-center text-white font-[500px] font-montserrat " @click="setDate">Simpan</p>
-            </div>
-            <div class="container flex flex-col p-2 gap-y-2 ">
-                <p class="text-white text-[14px] font-mulish">Pilih Tanggal</p>
-                <div class="flex flex-row items-center justify-between">
-                    <p class="text-white ms-4 font-montserrat">{{ startDate  }}</p>
-                    <p class="text-white">-</p>
-                    <p class="text-white ms-4 font-montserrat">{{ endDate  }}</p>
+    <div class="flex justify-center " v-if="datePicker">
+        <div class="md:w-1/4 w-full flex flex-col">
+            <header class="bg-primaryColors ">
+                <div class="flex flex-row items-center justify-between p-3">
+                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-white " @click="close" />
+                    <p class="text-center text-white font-[500px] font-montserrat " @click="setDate">Simpan</p>
                 </div>
-            </div>
-        </header>
-        <main class="flex-grow w-full">
-            <DatePicker v-model.range="range" mode="date"  :rows="10" expanded />
-        </main>
+                <div class="container flex flex-col p-2 gap-y-2 ">
+                    <p class="text-white text-[14px] font-mulish">Pilih Tanggal</p>
+                    <div class="flex flex-row items-center justify-between">
+                        <p class="text-white ms-4 font-montserrat">{{ startDate  }}</p>
+                        <p class="text-white">-</p>
+                        <p class="text-white ms-4 font-montserrat">{{ endDate  }}</p>
+                    </div>
+                </div>
+            </header>
+            <main class="flex-grow w-full h-screen overflow-auto">
+                <DatePicker v-model.range="range" mode="date"  :rows="10" expanded />
+            </main>
+        </div>
     </div>
 </template>
 
