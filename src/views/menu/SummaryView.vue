@@ -9,138 +9,143 @@
 }
 </style>
 <template>
-    <div class="w-full h-screen">
-        <MenuBottomBar/> 
-        <div class="flex flex-col pb-10 bg-blue-500 radius_bottom">
-            <div class="flex flex-row items-center justify-center w-full py-2 gap-x-4">
-                <select class="w-2/5 text-white bg-blue-500 font-mulish"  v-model="selectedMonth">
-                    <option 
-                        v-for="item in listMonth"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.name }}
-                    </option>
-                </select>
-                <select class="w-2/5 text-white bg-blue-500 font-mulish"  v-model="selectedYear">
-                    <option
-                        v-for="item in listYear"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item }}
-                    </option>
-                </select>
-            </div>
-            <div class="flex flex-row pt-2">
-                <div class="w-full"> 
-                    <VueApexCharts
-                    :options="chartOptions"
-                    :series="series" 
-                    class="w-full"
-                    type="radialBar"    
-                    ></VueApexCharts>
+    <div class="flex justify-center">
+
+
+        <div class="w-full md:w-1/2 lg:w-1/3 h-screen overflow-auto lg:mb-20 md:pb-24">
+            <div class="flex flex-col pb-10 bg-blue-500 radius_bottom">
+                <div class="flex flex-row items-center justify-center w-full py-2 gap-x-4">
+                    <select class="w-2/5 text-white bg-blue-500 font-mulish"  v-model="selectedMonth">
+                        <option 
+                            v-for="item in listMonth"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.name }}
+                        </option>
+                    </select>
+                    <select class="w-2/5 text-white bg-blue-500 font-mulish"  v-model="selectedYear">
+                        <option
+                            v-for="item in listYear"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item }}
+                        </option>
+                    </select>
                 </div>
-                <div class="container flex flex-col w-full">
-                    <div class="flex flex-row justify-between">
-                        <p class="text-white font-mulish">Hadir</p>
-                        <p class="text-white font-mulish">{{ data.hadir }}</p>
+                <div class="flex flex-row pt-2">
+                    <div class="w-full"> 
+                        <VueApexCharts
+                        :options="chartOptions"
+                        :series="series" 
+                        class="w-full"
+                        type="radialBar"    
+                        ></VueApexCharts>
                     </div>
-                    <div class="flex flex-row justify-between">
-                        <p class="text-white font-mulish">Izin</p>
-                        <p class="text-white font-mulish">{{ data.ijin }}</p>
-                    </div>
-                    <div class="flex flex-row justify-between">
-                        <p class="text-white font-mulish">Sakit</p>
-                        <p class="text-white font-mulish">{{ data.sakit }}</p>
-                    </div>
-                    <div class="flex flex-row justify-between">
-                        <p class="text-white font-mulish">Lain-Lain</p>
-                        <p class="text-white font-mulish">{{ data.lain }}</p>
-                    </div>
-                    <div class="flex flex-row justify-between">
-                        <p class="text-white font-mulish">Terlambat</p>
-                        <p class="text-white font-mulish">{{ data.terlambat }}</p>
+                    <div class="container flex flex-col w-full">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-white font-mulish">Hadir</p>
+                            <p class="text-white font-mulish">{{ data.hadir }}</p>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <p class="text-white font-mulish">Izin</p>
+                            <p class="text-white font-mulish">{{ data.ijin }}</p>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <p class="text-white font-mulish">Sakit</p>
+                            <p class="text-white font-mulish">{{ data.sakit }}</p>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <p class="text-white font-mulish">Lain-Lain</p>
+                            <p class="text-white font-mulish">{{ data.lain }}</p>
+                        </div>
+                        <div class="flex flex-row justify-between">
+                            <p class="text-white font-mulish">Terlambat</p>
+                            <p class="text-white font-mulish">{{ data.terlambat }}</p>
+                        </div>
                     </div>
                 </div>
+                <div class="container flex flex-row justify-between">
+                    <p class="w-full text-white font-mulish">Presensi Tahun Ini</p>
+                    <button class="flex flex-row items-center text-white gap-x-2" @click="toDetailYear(selectedYear)">
+                        <p>{{ data.hadir_tahun_ini }}</p>
+                        <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                    </button>
+                </div>
             </div>
-            <div class="container flex flex-row justify-between">
-                <p class="w-full text-white font-mulish">Presensi Tahun Ini</p>
-                <button class="flex flex-row items-center text-white gap-x-2" @click="toDetailYear(selectedYear)">
-                    <p>{{ data.hadir_tahun_ini }}</p>
-                    <font-awesome-icon :icon="['fas', 'chevron-right']" />
-                </button>
+            <div v-if="data.rekap && data.rekap.length > 0" class="container overflow-x-auto">
+                <table class="table table-zebra">
+                    <thead>
+                        <tr>
+                            <th class="text-sm text-black font-mulish text-bold">Tanggal</th>
+                            <th class="text-sm text-black font-mulish text-bold">Datang</th>
+                            <th class="text-sm text-black font-mulish text-bold">Pulang</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in data.rekap" :key="item">
+                            <th>{{ item.hari }}</th>
+                            <td>{{ item.detail.jam_datang }}</td>
+                            <td>{{ item.detail.jam_pulang }}</td>
+                            <td>
+                                <button class="text-primaryColors" @click="detail(item)">
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+            <div v-else class="flex items-center justify-center h-1/2">
+                <div class="flex flex-col">
+                    <font-awesome-icon :icon="['far', 'circle-question']" size="xl" class="text-primaryColors"/>
+                    <p class="font-mulish text-primaryColors">Data Masih Kosong</p>
+                </div>
+            </div>
+            <MenuBottomBar/> 
+            <vue-bottom-sheet  ref="detail" >
+                <div class="container" v-if="Object.keys(arrDetail).length > 0">
+                    <div class="flex flex-row justify-between">
+                        <p class="text-lg text-black font-mulish text-bold">{{ arrDetail.hari }}</p>
+                        <p class="text-primaryColors font-mulish text-bold">{{ arrDetail.status }}</p>
+                    </div>
+                    <div class="flex flex-row py-4 gap-x-20">
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs uppercase font-mulish">jam datang</p>
+                            <p class="text-lg text-black uppercase font-mulish">{{ arrDetail.detail.jam_datang }}</p>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs uppercase font-mulish">jam pulang</p>
+                            <p class="text-lg text-black uppercase font-mulish">{{ arrDetail.detail.jam_pulang }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-4 md:gap-x-12">
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs font-mulish">Lokasi Datang</p>
+                            <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.lokasi_datang }}</p>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs uppercase font-mulish">Lokasi Pulang</p>
+                            <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.lokasi_pulang }}</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-row py-4 gap-x-20">
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs font-mulish">Catatan Datang</p>
+                            <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.catatan_datang }}</p>
+                        </div>
+                        <div class="flex flex-col gap-y-2">
+                            <p class="text-xs uppercase font-mulish">Catatan Pulang</p>
+                            <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.catatan_pulang }}</p>
+                        </div>
+                    </div>
+                </div>
+            </vue-bottom-sheet>
         </div>
-        <div v-if="data.rekap && data.rekap.length > 0" class="container overflow-x-auto">
-            <table class="table table-zebra">
-                <thead>
-                    <tr>
-                        <th class="text-sm text-black font-mulish text-bold">Tanggal</th>
-                        <th class="text-sm text-black font-mulish text-bold">Datang</th>
-                        <th class="text-sm text-black font-mulish text-bold">Pulang</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in data.rekap" :key="item">
-                        <th>{{ item.hari }}</th>
-                        <td>{{ item.detail.jam_datang }}</td>
-                        <td>{{ item.detail.jam_pulang }}</td>
-                        <td>
-                            <button class="text-primaryColors" @click="detail(item)">
-                                Detail
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div v-else class="flex items-center justify-center h-1/2">
-            <div class="flex flex-col">
-                <font-awesome-icon :icon="['far', 'circle-question']" size="xl" class="text-primaryColors"/>
-                <p class="font-mulish text-primaryColors">Data Masih Kosong</p>
-            </div>
-        </div>
-        <vue-bottom-sheet ref="detail" >
-            <div class="container" v-if="arrDetail.length > 0" >
-                <div class="flex flex-row justify-between">
-                    <p class="text-lg text-black font-mulish text-bold">{{ arrDetail.hari }}</p>
-                    <p class="text-primaryColors font-mulish text-bold">{{ arrDetail.status }}</p>
-                </div>
-                <div class="flex flex-row py-4 gap-x-20">
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs uppercase font-mulish">jam datang</p>
-                        <p class="text-lg text-black uppercase font-mulish">{{ arrDetail.detail.jam_datang }}</p>
-                    </div>
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs uppercase font-mulish">jam pulang</p>
-                        <p class="text-lg text-black uppercase font-mulish">{{ arrDetail.detail.jam_pulang }}</p>
-                    </div>
-                </div>
-                <div class="flex flex-row py-4 ">
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs font-mulish">Lokasi Datang</p>
-                        <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.lokasi_datang }}</p>
-                    </div>
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs uppercase font-mulish">Lokasi Pulang</p>
-                        <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.lokasi_pulang }}</p>
-                    </div>
-                </div>
-                <div class="flex flex-row py-4 gap-x-20">
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs font-mulish">Catatan Datang</p>
-                        <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.catatan_datang }}</p>
-                    </div>
-                    <div class="flex flex-col gap-y-2">
-                        <p class="text-xs uppercase font-mulish">Catatan Pulang</p>
-                        <p class="text-sm text-black uppercase font-mulish">{{ arrDetail.detail.catatan_pulang }}</p>
-                    </div>
-                </div>
-            </div>
-        </vue-bottom-sheet>
     </div>
+
 </template>
 
 <script>
@@ -199,8 +204,10 @@ export default {
             this.selectedYear =  currentYear
         },
         detail(item){
-            this.$refs.detail.open();
             this.arrDetail = item;
+            console.log(Object.keys(this.arrDetail).length);
+            
+            this.$refs.detail.open();
         },
         toDetailYear(selectedYear){
             this.$router.push({name: 'summaryYearly', params: { year: selectedYear } })

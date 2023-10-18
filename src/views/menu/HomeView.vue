@@ -5,8 +5,8 @@
 }
 </style>
 <template>
-    <div class="flex justify-center ">
-        <div class="md:w-1/3 lg:w-1/4 w-full flex flex-col h-screen overflow-auto ">
+    <div class="flex justify-center">
+        <div class="md:w-1/2 lg:w-1/3 w-full flex flex-col h-screen overflow-auto ">
             <header class="top-0 flex flex-col items-center justify-center w-full py-4 gap-y-2 bg-primaryColors bg_home">
                 <p class="text-sm font-thin text-white font-mulish">Demo Admin Sekolah</p>
                 <div class="container flex items-center justify-center w-full">
@@ -53,10 +53,15 @@
                         </div>
                     </div>
                 </div>
-                <MenuBottomBar/>
             </main>
+            <div class="justify-center bg-red-500">
+                <button>p</button>
+                <MenuBottomBar/>
+        
+            </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -95,7 +100,6 @@ export default {
     },
     methods : {
         async getIp(){
-            this.state.Loading()
             await axios.get('https://api.ipify.org?format=json')
                 .then(response => {
                     this.state.showSuccess()
@@ -107,7 +111,6 @@ export default {
                 });
         },
         async getDataIp(){
-            this.state.Loading()
                 await axios.get(`http://ip-api.com/json/${this.ipAddress}`).then(response => {
                     this.state.Success()
                     this.informationIp = response.data;

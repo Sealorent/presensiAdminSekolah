@@ -1,15 +1,18 @@
 <template>
-    <div class="w-full h-screen">
-        <HeaderMenusComponent :title="'Lap Jurnal Mengajar'" /> 
-        <iframe
-            :src="Url"
-            width="100%"
-            height="100%"
-            frameborder="0"
-            allowfullscreen
-            scrolling="no"
-        ></iframe>  
+    <div class="flex justify-center">
+        <div class="md:w-1/2 lg:w-1/3 h-screen overflow-auto">
+            <HeaderMenusComponent :title="'Lap Jurnal Mengajar'" /> 
+            <iframe
+                :src="Url"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                allowfullscreen
+                scrolling="yes"
+            ></iframe>  
+        </div>
     </div>
+
 </template>
 
 <script>

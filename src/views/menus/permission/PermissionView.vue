@@ -4,7 +4,7 @@
             
 
     <div class="flex justify-center h-screen" v-if="datePicker == false">
-        <div class="lg:w-1/4 md:w-1/3 w-full flex flex-col">
+        <div class="lg:w-1/2 md:w-1/2 w-full flex flex-col">
             <HeaderMenusComponent :title="'Pengajuan izin'"/>
             <div class="flex flex-col flex-grow pt-2 gap-y-6">
                 <div class="container flex flex-col gap-y-2">
@@ -44,7 +44,7 @@
     </div>
     <!-- datepicker -->
     <div class="flex justify-center " v-if="datePicker">
-        <div class="md:w-1/4 w-full flex flex-col">
+        <div class="md:w-1/3 w-full flex flex-col">
             <header class="bg-primaryColors ">
                 <div class="flex flex-row items-center justify-between p-3">
                     <font-awesome-icon :icon="['fas', 'xmark']" class="text-white " @click="close" />

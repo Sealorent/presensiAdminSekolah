@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center h-screen">
-        <div class="md:w-1/3 w-full flex flex-col">
+        <div class="md:w-1/2 lg:w-1/2 w-full flex flex-col">
             <HeaderMenusComponent :title="title" />  
             <div class="flex flex-col flex-grow pt-2">
                 <p class="text-center">Batas Waktu Absen 60 Detik</p>
