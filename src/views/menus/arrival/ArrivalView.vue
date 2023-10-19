@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center  h-screen">
-        <div class="md:w-1/2 w-full flex flex-col">
+        <div class="md:w-1/3 w-full flex flex-col">
             <headerMenusComponent :title="'Masuk'"/>
             <div class="flex flex-grow">
                 <div ref="map" style="height: 100%; width: 100%;"></div>

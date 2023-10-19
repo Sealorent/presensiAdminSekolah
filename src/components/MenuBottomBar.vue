@@ -1,11 +1,9 @@
 <template>
-    <div class="flex justify-center">
-        <div class="md:w-1/2 lg:w-1/3 lg:m-auto md:m-auto w-full flex flex-row btm-nav">
-            <button class="text-info" v-for="item in menu" :key="item" @click="this.$router.push({name:item.route})" :class="routeName == item.route ? 'active' : ' ' ">
-                <font-awesome-icon :icon="['fas', item.icon]" class="text-lg" />
-                <p class="text-[10px] uppercase">{{ item.name }}</p>
-            </button>
-        </div>
+    <div class=" grid grid-cols-3 btm-nav">
+        <button class="text-info" v-for="item in menu" :key="item" @click="this.$router.push({name:item.route})" :class="routeName == item.route ? 'active' : ' ' ">
+            <font-awesome-icon :icon="['fas', item.icon]" class="text-lg" />
+            <p class="text-[10px] uppercase">{{ item.name }}</p>
+        </button>
     </div>
 </template>
 

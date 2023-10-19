@@ -1,6 +1,6 @@
 <template>
-    <div class="flex justify-center h-screen ">
-        <div class="md:w-1/3 w-full flex flex-col ">
+    <div class="flex justify-center h-screen">
+        <div class="md:w-1/3 w-full flex flex-col">
             <HeaderMenusComponent :title="'Jadwal Pelajaran'"/>
             <div class="container flex flex-row justify-between p-2">
                 <div class="flex flex-row items-center w-1/2">
@@ -28,14 +28,14 @@
                     </select>
                 </div>
             </div>
-            <div class="w-full h-screen overflow-auto">
+            <div class="w-full h-screen">
                 <iframe
                     :src="Url"
                     width="100%"
                     height="100%"
                     frameborder="0"
                     allowfullscreen
-                    scrolling="yes"
+                    scrolling="no"
                 ></iframe> 
             </div>
         </div>
