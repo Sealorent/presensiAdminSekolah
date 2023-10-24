@@ -1,42 +1,40 @@
 <template>
-    <div class="flex justify-center h-screen">
-        <div class="md:w-1/3 w-full flex flex-col">
-            <HeaderMenusComponent :title="title" />  
-            <div class="flex flex-col flex-grow pt-2">
-                <p class="text-center">Batas Waktu Absen 60 Detik</p>
-                <p class="text-center">Setelah itu Halaman akan Tertutup otomatis</p>
-                <div class="flex flex-row items-center pt-2 mx-4 gap-x-2">
-                    <font-awesome-icon :icon="['far', 'clock']" class="text-[20px]" />
-                    <p>{{ currentTime }}</p>
+    <div class="flex flex-col w-full h-screen">
+      <HeaderMenusComponent :title="title" />  
+        <div class="flex flex-col flex-grow pt-2">
+            <p class="text-center">Batas Waktu Absen 60 Detik</p>
+            <p class="text-center">Setelah itu Halaman akan Tertutup otomatis</p>
+            <div class="flex flex-row items-center pt-2 mx-4 gap-x-2">
+                <font-awesome-icon :icon="['far', 'clock']" class="text-[20px]" />
+                <p>{{ currentTime }}</p>
+            </div>
+            <div class="flex flex-row items-center pt-2 mx-4 gap-x-2">
+                <font-awesome-icon :icon="['fas', 'street-view']" class="text-[20px]" />
+                <p>{{ selectedLocation.lokasi }}</p>
+            </div>
+            <div class="pt-2 text-center">
+                <div @click="handleFileInputClick" class="container flex flex-col items-center justify-center w-40 h-40 bg-primaryColors rounded-xl">
+                    <!-- <input
+                    ref="fileInput"
+                    type="file"
+                    accept="image/*"
+                    @change="handleFileInputChange"
+                    hidden
+                    />
+                    <font-awesome-icon :icon="['fas', 'camera']" class="text-[40px] text-white" v-if="selectedImage == null" />
+                    <p class="text-white font-mulish" v-if="selectedImage == null">Ambil Foto !</p> -->
+                    <img :src="selectedImage" alt="" v-if="selectedImage !== null" style="height: 100%; width: 100%;">
+                    <video v-else ref="video"  class="w-full h-full" autoplay></video>    
                 </div>
-                <div class="flex flex-row items-center pt-2 mx-4 gap-x-2">
-                    <font-awesome-icon :icon="['fas', 'street-view']" class="text-[20px]" />
-                    <p>{{ selectedLocation.lokasi }}</p>
-                </div>
-                <div class="pt-2 text-center">
-                    <div @click="handleFileInputClick" class="container flex flex-col items-center justify-center w-40 h-40 bg-primaryColors rounded-xl">
-                        <!-- <input
-                        ref="fileInput"
-                        type="file"
-                        accept="image/*"
-                        @change="handleFileInputChange"
-                        hidden
-                        />
-                        <font-awesome-icon :icon="['fas', 'camera']" class="text-[40px] text-white" v-if="selectedImage == null" />
-                        <p class="text-white font-mulish" v-if="selectedImage == null">Ambil Foto !</p> -->
-                        <img :src="selectedImage" alt="" v-if="selectedImage !== null" style="height: 100%; width: 100%;">
-                        <video v-else ref="video"  class="w-full h-full" autoplay></video>    
-                    </div>
-                    <button @click="captureFrameFromVideo" class="mt-2 text-white btn bg-primaryColors">
-                        Ambil Foto
-                    </button>
-                </div>
-                <div class="flex flex-col items-center justify-center pt-2 gap-y-2">
-                    <input type="text" placeholder="Catatan" v-model="keterangan" class="w-full max-w-xs input input-bordered" />
-                    <button @click="submit" class="text-white btn bg-primaryColors">Kirim Absen <span><Timer/></span></button>
-                </div>
-            </div>  
-        </div>
+                <button @click="captureFrameFromVideo" class="mt-2 text-white btn bg-primaryColors">
+                    Ambil Foto
+                </button>
+            </div>
+            <div class="flex flex-col items-center justify-center pt-2 gap-y-2">
+                <input type="text" placeholder="Catatan" v-model="keterangan" class="w-full max-w-xs input input-bordered" />
+                <button @click="submit" class="text-white btn bg-primaryColors">Kirim Absen <span><Timer/></span></button>
+            </div>
+        </div>  
     </div>
 </template>
 
