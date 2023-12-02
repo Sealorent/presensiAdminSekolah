@@ -93,22 +93,22 @@ export default {
     },
     methods : {
         async getIp(){
-            this.state.Loading()
+            // this.state.Loading()
             await axios.get('https://api.ipify.org?format=json')
                 .then(response => {
-                    this.state.showSuccess()
+                    // this.state.showSuccess()
                     const data = response.data;
                     this.ipAddress = data.ip;
                 })
                 .catch(error => {
-                    this.state.Loading(error.message)
+                    // this.state.Error(error.message)
                 });
         },
         async getDataIp(){
-            this.state.Loading()
-                await axios.get(`http://ip-api.com/json/${this.ipAddress}`).then(response => {
+            // this.state.Loading()
+                await axios.get(`https://api-bdc.net/data/ip-geolocation?ip=${this.ipAddress}&localityLanguage=id&key=${import.meta.env.VITE_TOKEN_IP_GEOLOCATION}`).then(response => {
                     this.state.Success()
-                    this.informationIp = response.data;
+                    this.informationIp = response.data.location.localityInfo.informative[3].name;
                     this.displayTimeInDifferentZones(this.informationIp.timezone);
                 }).catch(error => {
                     this.state.Error(error.message)
