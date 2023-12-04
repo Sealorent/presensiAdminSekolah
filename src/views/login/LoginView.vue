@@ -1,6 +1,6 @@
 <template>
    <div class="flex flex-col w-full h-screen">
-        <main class="flex items-center justify-center flex-grow">
+        <main class="flex items-center justify-center flex-grow mb-5">
             <div class="container pt-2">
                 <div class="flex flex-row justify-center w-full">
                     <img src="@/assets/images/adminsekolah.png" alt="" class="w-20 h-20">
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </main>
-        <footer class="sticky bottom-0 flex flex-col h-20 pb-6 gap-y-3">
+        <footer class=" bottom-0 flex flex-col h-20 pb-6 gap-y-3">
             <p class="text-center text-[13px] font-mulish ">Butuh Bantuan ?</p>
             <p class="text-center text-[15px] font-mulish text-primaryColors ">Hubungi Admin</p>
         </footer>
