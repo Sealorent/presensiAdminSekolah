@@ -107,11 +107,12 @@ export default {
         async getDataIp(){
             // this.state.Loading()
                 await axios.get(`https://api-bdc.net/data/ip-geolocation?ip=${this.ipAddress}&localityLanguage=id&key=${import.meta.env.VITE_TOKEN_IP_GEOLOCATION}`).then(response => {
-                    this.state.Success()
+                    // this.state.Success()
                     this.informationIp = response.data.location.localityInfo.informative[3].name;
                     this.displayTimeInDifferentZones(this.informationIp.timezone);
                 }).catch(error => {
-                    this.state.Error(error.message)
+                    // this.state.Error(error.message)
+                    console.log(error.message);
                 });
         },
         updateTime() {
