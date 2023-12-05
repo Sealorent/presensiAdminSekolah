@@ -1,1 +1,0 @@
-var s=Object.defineProperty;var n=(e,t,a)=>t in e?s(e,t,{enumerable:!0,configurable:!0,writable:!0,value:a}):e[t]=a;var o=(e,t,a)=>(n(e,typeof t!="symbol"?t+"":t,a),a);class l{}o(l,"setFormData",t=>{let a=new FormData;for(let r in t)a.append(r,t[r]);return a});export{l as S};
