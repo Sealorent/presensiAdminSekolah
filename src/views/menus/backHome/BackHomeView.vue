@@ -149,12 +149,15 @@ export default {
             console.log(this.center);
             console.log(this.currentLocation);
             console.log(this.distance);
-            // if(this.distance > 10) {
-            //     this.$alertStore.showAlert('danger', 'Lokasi diluar radius');
-            // }else{
+
+            var radius  = MainLocalStorage.getDataUser().data.radius;
+            
+            if(parseInt(this.distance, 10) > parseInt(radius, 10) ) {
+                this.$alertStore.showAlert('danger', 'Lokasi diluar radius');
+            }else{
                 MainLocalStorage.setSelectedLocation(this.selectedOption);
                 this.$router.push({name: 'backHomeTime'});
-            // }
+            }
         }
     }
 }

@@ -1,25 +1,28 @@
 <template>
-    <div class="flex flex-col w-full h-screen">
-        <headerMenusComponent :title="'Masuk'"/>
-        <div class="flex flex-grow">
-            <div ref="map" style="height: 100%; width: 100%;"></div>
-        </div>
-        <div class="sticky bottom-0 flex flex-col items-center m-2 gap-y-2">
-            <div class="flex flex-row items-center justify-center w-full gap-x-2">
-                <p class="text-sm font-mulish">Pilih Lokasi</p>
-                <select class="w-full max-w-xs select select-info" @change="handleSelectChange"  v-model="selectedOption">
-                    <option
-                        v-for="item in selectComponent.options"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.lokasi }}
-                    </option>
-                </select>
+     <div class="flex justify-center">
+        <div class="flex flex-col w-full md:w-1/3 h-screen">
+            <headerMenusComponent :title="'Masuk'"/>
+            <div class="flex flex-grow">
+                <div ref="map" style="height: 100%; width: 100%;"></div>
             </div>
-            <button class="text-white w-96 btn bg-primaryColors text-thin font-mulish" @click="setLocation">KONFIRMASI LOKASI</button>
+            <div class="sticky bottom-0 flex flex-col items-center m-2 gap-y-2">
+                <div class="flex flex-row items-center justify-center w-full gap-x-2">
+                    <p class="text-sm font-mulish">Pilih Lokasi</p>
+                    <select class="w-full max-w-xs select select-info" @change="handleSelectChange"  v-model="selectedOption">
+                        <option
+                            v-for="item in selectComponent.options"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.lokasi }}
+                        </option>
+                    </select>
+                </div>
+                <button class="text-white w-96 btn bg-primaryColors text-thin font-mulish" @click="setLocation">KONFIRMASI LOKASI</button>
+            </div>
         </div>
     </div>
+
 </template>
 
 
@@ -149,12 +152,14 @@ export default {
             console.log(this.center);
             console.log(this.currentLocation);
             console.log(this.distance);
-            // if(this.distance > 10) {
-            //     this.$alertStore.showAlert('danger', 'Lokasi diluar radius');
-            // }else{
+            var radius  = MainLocalStorage.getDataUser().data.radius;
+            
+            if(parseInt(this.distance, 10) > parseInt(radius, 10) ) {
+                this.$alertStore.showAlert('danger', 'Lokasi diluar radius');
+            }else{
                 MainLocalStorage.setSelectedLocation(this.selectedOption);
                 this.$router.push({name: 'arrivalTime'});
-            // }
+            }
         }
     }
 }

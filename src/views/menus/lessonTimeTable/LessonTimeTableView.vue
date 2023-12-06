@@ -1,43 +1,46 @@
 <template>
-    <div class="w-full h-screen">
-        <HeaderMenusComponent :title="'Jadwal Pelajaran'"/>
-        <div class="container flex flex-row justify-between p-2">
-            <div class="flex flex-row items-center w-1/2">
-                <p class="w-10 font-mulish">Unit :</p>
-                <select class="w-2/3 select select-info" @change="handleSelectChangeUnit"  v-model="selectedOptionUnit" >
-                    <option
-                        v-for="item in listUnit"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.nama_unit }}
-                    </option>
-                </select>
+    <div class="flex justify-center">
+        <div class="w-full h-screen md:w-1/3">
+            <HeaderMenusComponent :title="'Jadwal Pelajaran'"/>
+            <div class="container flex flex-row justify-between p-2">
+                <div class="flex flex-row items-center w-1/2">
+                    <p class="w-10 font-mulish">Unit :</p>
+                    <select class="w-2/3 select select-info" @change="handleSelectChangeUnit"  v-model="selectedOptionUnit" >
+                        <option
+                            v-for="item in listUnit"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.nama_unit }}
+                        </option>
+                    </select>
+                </div>
+                <div class="flex flex-row items-center w-1/2">
+                    <p class="w-1/3 font-mulish">Kelas :</p>
+                    <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionClass" >
+                        <option
+                            v-for="item in listClass"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.nama_kelas }}
+                        </option>
+                    </select>
+                </div>
             </div>
-            <div class="flex flex-row items-center w-1/2">
-                <p class="w-1/3 font-mulish">Kelas :</p>
-                <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionClass" >
-                    <option
-                        v-for="item in listClass"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.nama_kelas }}
-                    </option>
-                </select>
+            <div class="w-full h-screen">
+                <iframe
+                    :src="Url"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    allowfullscreen
+                    scrolling="auto"
+                ></iframe> 
             </div>
-        </div>
-        <div class="w-full h-screen">
-            <iframe
-                :src="Url"
-                width="100%"
-                height="100%"
-                frameborder="0"
-                allowfullscreen
-                scrolling="no"
-            ></iframe> 
         </div>
     </div>
+
 </template>
 
 <script>

@@ -6,81 +6,83 @@
 }
 </style>
 <template>
-    <div class="w-full h-screen">
-        <HeaderMenusComponent :title="'Jurnal Mengajar'"/>
-        <div class="container flex flex-row flex-wrap justify-between p-2 gap-y-3">
-            <div class="flex flex-row items-center w-1/2">
-                <p class="w-10 font-mulish">Unit :</p>
-                <select class="w-2/3 select select-info" @change="handleSelectChangeUnit"  v-model="selectedOptionUnit" >
-                    <option
-                        v-for="item in listUnit"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.nama_unit }}
-                    </option>
-                </select>
+    <div class="flex justify-center">
+        <div class="w-full h-screen md:w-1/3">
+            <HeaderMenusComponent :title="'Jurnal Mengajar'"/>
+            <div class="container flex flex-row flex-wrap justify-between p-2 gap-y-3">
+                <div class="flex flex-row items-center w-1/2">
+                    <p class="w-10 font-mulish">Unit :</p>
+                    <select class="w-2/3 select select-info" @change="handleSelectChangeUnit"  v-model="selectedOptionUnit" >
+                        <option
+                            v-for="item in listUnit"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.nama_unit }}
+                        </option>
+                    </select>
+                </div>
+                <div class="flex flex-row items-center w-1/2">
+                    <p class="w-1/3 font-mulish">Kelas :</p>
+                    <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionClass" >
+                        <option
+                            v-for="item in listClass"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.nama_kelas }}
+                        </option>
+                    </select>
+                </div>
+                <div class="flex flex-row items-center w-1/2">
+                    <p class="w-1/3 font-mulish">Bulan :</p>
+                    <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionMonth" >
+                        <option
+                            v-for="item in listMonth"
+                            :key="item"
+                            :value="item"
+                            > 
+                            {{ item.month_name }}
+                        </option>
+                    </select>
+                </div>
             </div>
-            <div class="flex flex-row items-center w-1/2">
-                <p class="w-1/3 font-mulish">Kelas :</p>
-                <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionClass" >
-                    <option
-                        v-for="item in listClass"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.nama_kelas }}
-                    </option>
-                </select>
+            <div v-if="data.data_jurnal && data.data_jurnal.length > 0" class="container overflow-x-auto">
+                <!-- <table class="table table-zebra">
+                    <thead>
+                        <tr>
+                            <th class="text-sm text-black font-mulish text-bold">Tanggal</th>
+                            <th class="text-sm text-black font-mulish text-bold">Datang</th>
+                            <th class="text-sm text-black font-mulish text-bold">Pulang</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in data.rekap" :key="item">
+                            <th>{{ item.hari }}</th>
+                            <td>{{ item.detail.jam_datang }}</td>
+                            <td>{{ item.detail.jam_pulang }}</td>
+                            <td>
+                                <button class="text-primaryColors" @click="detail(item)">
+                                    Detail
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <p>Data Ada</p>
             </div>
-            <div class="flex flex-row items-center w-1/2">
-                <p class="w-1/3 font-mulish">Bulan :</p>
-                <select class="w-2/3 select select-info" @change="handleSelectChangeClass"  v-model="selectedOptionMonth" >
-                    <option
-                        v-for="item in listMonth"
-                        :key="item"
-                        :value="item"
-                        > 
-                        {{ item.month_name }}
-                    </option>
-                </select>
+            <div v-else class="flex items-center justify-center h-1/2">
+                <div class="flex flex-col">
+                    <font-awesome-icon :icon="['far', 'circle-question']" size="xl" class="text-primaryColors"/>
+                    <p class="font-mulish text-primaryColors">Data Masih Kosong</p>
+                </div>
             </div>
-        </div>
-        <div v-if="data.data_jurnal && data.data_jurnal.length > 0" class="container overflow-x-auto">
-            <!-- <table class="table table-zebra">
-                <thead>
-                    <tr>
-                        <th class="text-sm text-black font-mulish text-bold">Tanggal</th>
-                        <th class="text-sm text-black font-mulish text-bold">Datang</th>
-                        <th class="text-sm text-black font-mulish text-bold">Pulang</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in data.rekap" :key="item">
-                        <th>{{ item.hari }}</th>
-                        <td>{{ item.detail.jam_datang }}</td>
-                        <td>{{ item.detail.jam_pulang }}</td>
-                        <td>
-                            <button class="text-primaryColors" @click="detail(item)">
-                                Detail
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table> -->
-            <p>Data Ada</p>
-        </div>
-        <div v-else class="flex items-center justify-center h-1/2">
-            <div class="flex flex-col">
-                <font-awesome-icon :icon="['far', 'circle-question']" size="xl" class="text-primaryColors"/>
-                <p class="font-mulish text-primaryColors">Data Masih Kosong</p>
+            <div class="fixed right-5 bottom-5 ">
+                <button class="text-white rounded-full shadow-md w-14 h-14 bg-primaryColors" @click="handleFloatingButtonClick">
+                    <font-awesome-icon :icon="['fas', 'plus']" />
+                </button>
             </div>
-        </div>
-        <div class="fixed right-5 bottom-5">
-            <button class="text-white rounded-full shadow-md w-14 h-14 bg-primaryColors" @click="handleFloatingButtonClick">
-                <font-awesome-icon :icon="['fas', 'plus']" />
-            </button>
         </div>
     </div>
 </template>
