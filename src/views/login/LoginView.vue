@@ -10,7 +10,7 @@
                 <p class="text-center text-[20px] font-mulish font-bold">Admin Sekolah</p>
                 <div class="container flex flex-col pt-10 item-center gap-y-5">
                     <input v-model="kode_sekolah" type="text" class="px-2 py-3 mb-3 border-2 border-gray-400 rounded-lg font-mulish focus:outline-none focus:border-primaryColors" placeholder="Kode Sekolah" />
-                    <input v-model="nip" type="text" class="px-2 py-3 border-2 border-gray-400 rounded-lg font-mulish focus:outline-none focus:border-primaryColors" placeholder="NIS" />
+                    <input v-model="nip" type="text" class="px-2 py-3 border-2 border-gray-400 rounded-lg font-mulish focus:outline-none focus:border-primaryColors" placeholder="NIP" />
                     <PasswordContainer v-model:value="password" title="Password" />
                     <!-- <small class="text-end text-primaryColors"><button @click="this.$router.push('/resetPassword')"> Lupa Password ?</button></small> -->
                     <button @click="login" class="w-full h-12 text-white border-2 rounded-full bg-primaryColors" >Lanjut</button>
