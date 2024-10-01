@@ -12,7 +12,7 @@
                     <input v-model="kode_sekolah" type="text" class="px-2 py-3 mb-3 border-2 border-gray-400 rounded-lg font-mulish focus:outline-none focus:border-primaryColors" placeholder="Kode Sekolah" />
                     <input v-model="nip" type="text" class="px-2 py-3 border-2 border-gray-400 rounded-lg font-mulish focus:outline-none focus:border-primaryColors" placeholder="NIP" />
                     <PasswordContainer v-model:value="password" title="Password" />
-                    <!-- <small class="text-end text-primaryColors"><button @click="this.$router.push('/resetPassword')"> Lupa Password ?</button></small> -->
+                    <small class="text-end text-primaryColors"><button @click="this.$router.push('/forgot-password')"> Lupa Password ?</button></small>
                     <button @click="login" class="w-full h-12 text-white border-2 rounded-full bg-primaryColors" >Lanjut</button>
                     <button @click="clearSession" class="text-center font-mulish text-primaryColors text-md">Hapus Riwayat</button>
                 </div>
@@ -29,7 +29,7 @@
 <script>
 import { useAuthStore } from '@/stores/authStore.js';
 import PasswordContainer from '@/components/PasswordContainer.vue';
-import MainLocalStorage from '@/services/mainLocalStorage.js'
+import MainLocalStorage from '@/services/mainLocalStorage.js';
 import { inject } from 'vue';
 
 export default {

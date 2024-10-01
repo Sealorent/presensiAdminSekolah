@@ -16,6 +16,33 @@ class MainRepositories {
     return axios(config)
   }
 
+  getOtp(data) {
+    var config = {
+      method: 'post',
+      url: Static.url('get_otp.php'),
+      data: data
+    }
+    return axios(config)
+  }
+
+  submitOtp(data) {
+    var config = {
+      method: 'post',
+      url: Static.url('verify_otp.php'),
+      data: data
+    }
+    return axios(config)
+  }
+
+  resetPassword(data) {
+    var config = {
+      method: 'post',
+      url: Static.url('reset_password.php'),
+      data: data
+    }
+    return axios(config)
+  }
+
   dataUser(data) {
     var config = {
       method: 'post',
@@ -80,6 +107,8 @@ class MainRepositories {
   reportJournal(params) {
     return axios.get(Static.url('jurnal_mengajar_laporan.php'), { params: params })
   }
+
+
 }
 
 export default new MainRepositories()
