@@ -59,6 +59,7 @@ export default {
                 return;
             }
 
+            
             // Call the resetPassword method from the authStore
             this.authStore.resetPassword({ 
                 router: this.router,
