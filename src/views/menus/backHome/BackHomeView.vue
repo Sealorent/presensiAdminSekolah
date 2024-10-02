@@ -145,13 +145,13 @@ export default {
             const from = turf.point(this.center);
             const to = turf.point(this.currentLocation);
             const options = { units: 'kilometers' };
-            this.distance = turf.distance(from, to, options).toFixed(2) ;
-            console.log(this.center);
-            console.log(this.currentLocation);
-            console.log(this.distance);
-
-            var radius  = MainLocalStorage.getDataUser().data.radius;
+            this.distance = turf.distance(from, to, options).toFixed(2);
+            var radius  = MainLocalStorage.getDataUser().data.jarak_radius;
             
+            console.log('radius', parseInt(radius, 10));
+            console.log('distance', parseInt(this.distance, 10));
+            console.log('out of range', parseInt(this.distance, 10) > parseInt(radius, 10));
+
             if(parseInt(this.distance, 10) > parseInt(radius, 10) ) {
                 this.$alertStore.showAlert('danger', 'Lokasi diluar radius');
             }else{

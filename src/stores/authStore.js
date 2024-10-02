@@ -10,7 +10,7 @@ import setFormDataUtils from '@/utils/setFormDataUtils.js'
 import LoginResponse from '@/models/loginResponse.js'
 import DataUserResponse from '@/models/dataUserResponse.js'
 // mainLocalStorage
-import mainLocalStorage from '@/services/mainLocalStorage.js'
+import MainLocalStorage from '@/services/mainLocalStorage.js'
 import { useAlertStore } from './alertStore'
 import { useSessionStorage } from '@vueuse/core/index.cjs';
 
@@ -46,13 +46,13 @@ export const useAuthStore = defineStore('auth', {
         if (loginResponse.is_correct) {
           const dataUser = await this.dataUser(loginResponse)
           if (dataUser.is_correct == true) {
-            mainLocalStorage.setDataLogin({
+            MainLocalStorage.setDataLogin({
               kode_sekolah: kode_sekolah,
               nip: nip,
               password: password
             })
-            mainLocalStorage.setLoginResponse(loginResponse)
-            mainLocalStorage.setDataUser(dataUser)
+            MainLocalStorage.setLoginResponse(loginResponse)
+            MainLocalStorage.setDataUser(dataUser);
             stateStore.Success()
             router.push({ name: 'home' })
           } else {

@@ -158,7 +158,7 @@ export default {
             MainLocalStorage.getDataUser().data.max_datang,
            )
            console.log(
-            '',
+            'arrival',
             MainLocalStorage.getTimeArrival(),
            )
         }
