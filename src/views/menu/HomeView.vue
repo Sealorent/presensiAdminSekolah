@@ -8,7 +8,7 @@
     <div class="flex justify-center">
         <div class="flex flex-col items-center justify-center md:w-1/3 w-full h-screen">
             <header class="top-0 flex flex-col items-center justify-center w-full py-4 gap-y-2 bg-primaryColors bg_home">
-                <p class="text-sm font-thin text-white font-mulish">Demo Admin Sekolah</p>
+                <p class="text-sm font-thin text-white font-mulish">{{ namaSekolah }}</p>
                 <div class="container flex items-center justify-center w-full">
                     <div class="w-20 h-20 overflow-hidden border-2 rounded-full" >
                         <img alt="profile-image" class="object-cover w-full h-full" :src="imageUser"/>
@@ -79,6 +79,7 @@ export default {
             imageUser : MainLocalStorage.getDataUser().data.photo,
             nameUser : MainLocalStorage.getDataUser().data.nama,
             jabatanUser : MainLocalStorage.getDataUser().data.jabatan,
+            namaSekolah : MainLocalStorage.getDataUser().data.nama_sekolah,
             ipAddress : '',
             timeZone : null,
             formattedTime : '',
